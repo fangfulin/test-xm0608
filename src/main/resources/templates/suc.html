@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>系统管理</title>
+</head>
+<body>
+<h1 align="center">欢迎进入系统管理首页</h1>
+<!--代表没有登录，或者登录失败，会话内不存在登录用户对象（UsersDetail）-->
+<!--isAnonymous SpringSecurity框架提供验证用户不存在-->
+<!--sec:authorize SpringSecurity提供自定义标签-->
+<div sec:authorize="isAnonymous()">
+    <h2 align="center">游客您好，如果想进行系统管理<a th:href="@{/userLogin}">请登录</a></h2>
+</div>
+<!--isAuthenticated()返回true代表会话范围存在登录用户-->
+<div sec:authorize="isAuthenticated()">
+    <!--  .usernameParameter("name")-->
+    <h2 align="center"><span sec:authentication="name" style="color: #007bff">
+    <!--UserDetails.principal.authorities 代表所有角色-->
+</span>您好，您的用户权限为<span sec:authentication="principal.authorities" style="color:darkkhaki"></span>，您有权管理以下资源</h2>
+    <form th:action="@{/mylogout}" method="post">
+        <input th:type="submit" th:value="注销" />
+    </form>
+</div>
+<hr>
+<!--hasRole对应SecurityConfig中通过HttpSecurity捆绑的角色-->
+<div sec:authorize="hasRole('USER')">
+    <h3>用户管理</h3>
+    <ul>
+        <li><a th:href="@{/detail/user/users.html}">用户管理</a></li>
+    </ul>
+</div>
+<div sec:authorize="hasRole('PRODUCT')">
+    <h3>产品管理</h3>
+    <ul>
+        <li><a th:href="@{/detail/product/pro.html}">产品管理</a></li>
+    </ul>
+</div>
+<div sec:authorize="hasRole('ORDER')">
+    <h3>订单管理</h3>
+    <ul>
+        <li><a th:href="@{/detail/order/orders.html}">订单管理</a></li>
+    </ul>
+</div>
+
+<div sec:authorize="hasRole('FINAL')">
+    <h3>财会</h3>
+    <ul>
+        <li><a th:href="@{/detail/final/final.html}">财会管理</a></li>
+    </ul>
+</div>
+
+</body>
+</html>

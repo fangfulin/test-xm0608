@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newer.demo.dao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.newer.demo.entity.Article">
+        <id column="id" property="id" />
+        <result column="titile" property="titile" />
+        <result column="content" property="content" />
+        <result column="created" property="created" />
+        <result column="modified" property="modified" />
+        <result column="categories" property="categories" />
+        <result column="tage" property="tage" />
+        <result column="allowcomment" property="allowcomment" />
+        <result column="thumbnail" property="thumbnail" />
+    </resultMap>
+
+    <resultMap id="BaseResultMap" type="com.newer.demo.entity.Comment">
+        <id column="id" property="id" />
+        <result column="article_id" property="article_id" />
+        <result column="created" property="created" />
+        <result column="ip" property="ip" />
+        <result column="content" property="content" />
+        <result column="status" property="status" />
+        <result column="author" property="author" />
+
+    </resultMap>
+
+</mapper>
